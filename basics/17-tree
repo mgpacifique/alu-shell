@@ -1,2 +1,2 @@
 #!/bin/bash
-find . -print
+mkdir -p welcome/to/school
