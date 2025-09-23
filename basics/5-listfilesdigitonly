@@ -1,2 +1,2 @@
 #!/bin/bash
-ls -1 | grep '[0-9]'
+ls -l | grep '[0-9]'
