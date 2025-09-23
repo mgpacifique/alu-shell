@@ -4,7 +4,7 @@
 read -p "Enter the filename to make executable:" file_to_chmod
 
 #check if the exists
-if [-f "$file_to_chmod"]; then
+if [ -f "$file_to_chmod" ]; then
     chmod +x "$file_to_chmod"
     echo "Permissions updated: $file_to_chmod is now executable."
 else
