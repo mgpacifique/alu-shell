@@ -1,2 +1,2 @@
 #!/bin/bash
-find . -empty -print | xargs -n 1 basename
+find . -empty -print | while read f; do echo "${f##*/}"; done
