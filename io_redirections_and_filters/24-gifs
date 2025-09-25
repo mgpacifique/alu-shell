@@ -1,2 +1,2 @@
 #!/bin/bash
-find . -type f -iname '*.gif' -printf '%f\0' | xargs -0 -I{} sh -c 'printf "%s\n" "${1%.[Gg][Ii][Ff]}"' sh {} | LC_ALL=C sort -f
+find -type f -name "*.gif" -printf "%f\n" | rev | cut -d '.' -f 2- | rev | LC_ALL=C sort -f
