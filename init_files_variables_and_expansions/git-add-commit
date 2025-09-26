@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Prompt for the file to make executable
+read -p "Enter the filename to make executable:" file_to_chmod
+
+#check if the exists
+if [ -f "$file_to_chmod" ]; then
+    chmod +x "$file_to_chmod"
+    echo "Permissions updated: $file_to_chmod is now executable."
+else
+   echo "File does not exist. Skipping chmod."
+fi
+
+# Stage all changes
+git add .
+
+# Prompt for commit message
+read -p "Enter you commit message:" commit_msg
+git commit -m "$commit_msg"
+
+#Prompt for Git credentials (username and password)
+read -p "Enter your Git username: " git_user
+read -sp "Enter your Git password or token: " git_pass
+echo
+
+#push changes to the current branch
+#Note: using HTTPS with credantials embedded in URL (simplest automation)
+current_branch =  $(git branch --show-current)
+git push https://$git_user:$git_pass@$(git remote get-url origin | sed 's/https:\/\/\(.*\)/\1/') $current_branch
+
+echo "All done! Changes pushed to $current_branch."
