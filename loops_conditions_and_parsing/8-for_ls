@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+#This scripts print out the file list in a current directory.
+
+#loop through all non-hidden file in the current directory
+for file in *; do
+#check if the filename contains a dash
+if [[ "$file" == *-* ]]; then
+#print part after the first dash
+echo "${file#*-}"
+else
+#print the filename as is
+echo "$file"
+fi
+done
