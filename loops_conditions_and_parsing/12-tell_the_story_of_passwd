@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+#Read /etc/passwd line by line
+while IFS=: read -r username password userid groupid fullname homedir shell; do
+#if the full name field is empy, just keep it empty
+info="$fullname"
+
+echo "The user $username is part of the $groupid gang, lives in $homedir and rides $shell. $userid's place is protected by the passcode $password, more info about the user here: $info"
+done < /etc/passwd
