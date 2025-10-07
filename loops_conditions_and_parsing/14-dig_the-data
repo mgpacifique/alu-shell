@@ -1,3 +1,29 @@
 #!/usr/bin/env bash
-#Group by IP and HTTP code, count occurences, and sort descending
-awk '{count[$1,$9]++} END {for (key in count) {split(key, arr, SUBSEP); printf "%6d %s %s\n", count[key], arr[1], arr[2]}}' apache-access.log | sort -rn
+
+awk '
+{
+    # Count occurrences of each IP + HTTP code pair
+    count[$1,$9]++
+    key[count[$1,$9]] = $1 SUBSEP $9
+    pairs[$1,$9] = $1 SUBSEP $9
+}
+END {
+    # Store counts in array for sorting
+    n = 0
+    for (k in pairs) {
+        n++
+        counts[n] = count[k]
+        pair_keys[n] = k
+    }
+
+    # Sort indices by counts descending
+    asort(counts, sorted_counts)
+    
+    # Use a simpler approach: build array of counts -> list of keys
+    PROCINFO["sorted_in"] = "@val_num_desc"
+    for (k in count) {
+        split(k, arr, SUBSEP)
+        printf "%6d %s %s\n", count[k], arr[1], arr[2]
+    }
+}' apache-access.log
+
