@@ -1,29 +1,4 @@
 #!/usr/bin/env bash
-#This script count the occurence of each IP and HTTP
-awk '
-{
-    # Count occurrences of each IP + HTTP code pair
-    count[$1,$9]++
-    key[count[$1,$9]] = $1 SUBSEP $9
-    pairs[$1,$9] = $1 SUBSEP $9
-}
-END {
-    # Store counts in array for sorting
-    n = 0
-    for (k in pairs) {
-        n++
-        counts[n] = count[k]
-        pair_keys[n] = k
-    }
+# 14-dig_the-data
 
-    # Sort indices by counts descending
-    asort(counts, sorted_counts)
-    
-    # Use a simpler approach: build array of counts -> list of keys
-    PROCINFO["sorted_in"] = "@val_num_desc"
-    for (k in count) {
-        split(k, arr, SUBSEP)
-        printf "%6d %s %s\n", count[k], arr[1], arr[2]
-    }
-}' apache-access.log
-
+awk '{count[$1" "$9]++} END {for (key in count) printf "%7d %s\n", count[key], key}' apache-access.log | sort -nr
