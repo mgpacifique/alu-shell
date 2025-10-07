@@ -3,20 +3,18 @@
 
 #check if the file/directory 'school' exists
 if [ -e school ]; then
-echo "school file exists"
-
-check if it is empty
-if [ ! -s school ]; then
-echo "school file is empty"
-else
-echo "school file is not empty"
-fi
-
-#Check if it is a regular file
+# print if it is a regular file first
 if [ -f school ]; then
 echo "school is a regular file"
-fi 
+fi
+echo "school file exists"
 
+#check if empty
+if [ -s school ]; then
+echo "school file is not empty"
+else
+echo "school file is empty"
+fi
 else
 echo "school file does not exist"
 fi
