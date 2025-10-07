@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+#This script count the occurence of each IP and HTTP
 awk '
 {
     # Count occurrences of each IP + HTTP code pair
